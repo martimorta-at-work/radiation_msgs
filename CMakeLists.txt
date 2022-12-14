@@ -1,32 +1,39 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.5)
 project(radiation_msgs)
 
-find_package(catkin REQUIRED COMPONENTS
-  message_generation
-  std_msgs
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
+
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+# Generation of custom messages
+set(msg_files
+  "msg/Dose.msg"
+  "msg/DoseRate.msg"
+  "msg/Alarm.msg"
+  "msg/Spectral.msg"
 )
 
-include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${msg_files}
+  DEPENDENCIES 
+  std_msgs 
 )
 
-add_message_files(
-  DIRECTORY msg
-  FILES
-  Dose.msg
-  DoseRate.msg
-  Alarm.msg
-  Spectral.msg
-)
+ament_export_dependencies(rosidl_default_runtime)
 
-generate_messages(
-  DEPENDENCIES std_msgs
-)
-
-catkin_package(
-  # INCLUDE_DIRS
-  CATKIN_DEPENDS message_runtime std_msgs
-)
-
-
+ament_package()

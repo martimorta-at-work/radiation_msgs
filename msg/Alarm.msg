@@ -1,6 +1,6 @@
 # Alarm Notification for Level of Ionising Radiation Detection
 
-Header header		# timestamp in the header is the time
+std_msgs/Header header		# timestamp in the header is the time
 			# when alarm tripped
 			# frame indicates location of detector
 
