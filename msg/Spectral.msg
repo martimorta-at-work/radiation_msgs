@@ -25,8 +25,8 @@ uint8 type			# values communicated by spectrum
 
 uint8 intensity_units		# units for collected radiation data
 				# 0 - Counts (detector events)
-				# will almost certainly be counts per channel
-
+				# 1 - Particles/cm2/s (Flux)
+				
 string bin_units		# units for how data is resolved
 				# e.g. "Energy keV"
 				# if blank, assume integer channel numbers
